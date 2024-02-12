@@ -3,6 +3,10 @@
 #include <vector>
 #include <string>
 
+const int ROCK = 1;
+const int PAPER = 2;
+const int SCISSORS = 3;
+
 void getUserInput(const char *message, int &value);
 void getComputerInput(int &value);
 void printOptions(const std::vector<std::string> &options);
@@ -41,21 +45,26 @@ void conclusion(int &userInput, int &computerInput)
     const char *winMessage = "You Win!";
     const char *loseMessage = "Computer Win!";
 
-    if (userInput == computerInput)
-    {
-        std::cout << drawMessage << std::endl;
+    const char *resultMessage = loseMessage;
 
-        return;
+    if (userInput == ROCK && computerInput == SCISSORS)
+    {
+        resultMessage = winMessage;
+    }
+    else if (computerInput == ROCK && userInput == SCISSORS)
+    {
+        resultMessage = loseMessage;
+    }
+    else if (userInput == computerInput)
+    {
+        resultMessage = drawMessage;
+    }
+    else if (userInput > computerInput)
+    {
+        resultMessage = winMessage;
     }
 
-    if (userInput > computerInput)
-    {
-        std::cout << winMessage << std::endl;
-
-        return;
-    }
-
-    std::cout << loseMessage << std::endl;
+    std::cout << resultMessage << std::endl;
 }
 
 void getUserInput(const char *message, int &value)
